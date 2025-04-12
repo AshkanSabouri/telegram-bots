@@ -92,27 +92,20 @@ def handle_location(message):
             enter_time_shamsi = JalaliDateTime.now().strftime('%Y-%m-%d %H:%M:%S')
             cursor.execute('INSERT INTO attendance (chat_id, nickname, enter_time, enter_location_nickname) VALUES (%s, %s, %s, %s)',
                            (chat_id, nickname, enter_time_shamsi, location_nickname))
-            bot.send_message(chat_id, "ورود شما ثبت شد ✅")
+            bot.send_message(chat_id, f"ورود شما به {location_nickname} ثبت شد ✅")
         else:
-            bot.send_message(chat_id, "❗️ورود شما قبلا ثبت شده.")
+            bot.send_message(chat_id, f"❗️ورود شما به {location_nickname} قبلا ثبت شده.")
     elif action == 'خروج':
         cursor.execute('SELECT id, enter_time FROM attendance WHERE chat_id = %s AND exit_time IS NULL', (chat_id,))
         record = cursor.fetchone()
 
         if record is not None:
-            enter_time = record[1]
-            if datetime.now() >= enter_time + timedelta(minutes=10):
-                exit_time_shamsi = JalaliDateTime.now().strftime('%Y-%m-%d %H:%M:%S')
-                cursor.execute('UPDATE attendance SET exit_time = %s, exit_location_nickname = %s WHERE id = %s',
-                               (exit_time_shamsi, location_nickname, record[0]))
-                bot.send_message(chat_id, "خروج شما ثبت شد ✅")
-            else:
-                remaining_time = (enter_time + timedelta(minutes=10) - datetime.now()).seconds
-                minutes_remaining = remaining_time // 60
-                seconds_remaining = remaining_time % 60
-                bot.send_message(chat_id, f"❗️ برای خروج میبایست حداقل 10 دقیقه از ورود شما گذشته باشه. لطفا {minutes_remaining} دقیقه و {seconds_remaining} بعد تلاش کنید.")
+            exit_time_shamsi = JalaliDateTime.now().strftime('%Y-%m-%d %H:%M:%S')
+            cursor.execute('UPDATE attendance SET exit_time = %s, exit_location_nickname = %s WHERE id = %s',
+                            (exit_time_shamsi, location_nickname, record[0]))
+            bot.send_message(chat_id, f"خروج شما از {location_nickname} ثبت شد ✅")
         else:
-            bot.send_message(chat_id, "❗️ورود شما هنوز ثبت نشده")
+            bot.send_message(chat_id, f"❗️ورود شما به {location_nickname} هنوز ثبت نشده")
 
     user_last_action.pop(chat_id, None)  # Remove the user's last action
     send_welcome(message)  # Send the welcome/start menu again
