@@ -1,12 +1,12 @@
 [Unit]
-Description=Ayrik Attendance Telegram Bot
+Description=Attendance Telegram Bot
 After=network.target
 
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/var/opt/attendance/
-ExecStart=/usr/bin/python3 /var/opt/attendance/main.py
+WorkingDirectory=/var/opt/telegram-bots/Attendance
+ExecStart=/usr/bin/python3 /var/opt/telegram-bots/Attendance/main.py
 Restart=always
 RestartSec=5
 

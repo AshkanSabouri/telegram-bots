@@ -1,0 +1,15 @@
+[Unit]
+Description=Ayrik Outline Manager Telegram Bot
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/opt/outline/
+ExecStart=/usr/bin/python3 /var/opt/outline/main.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
