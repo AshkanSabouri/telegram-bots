@@ -1,0 +1,6 @@
+telebot
+timedelta
+geopy
+psycopg2-binary
+python-dotenv
+persiantools
