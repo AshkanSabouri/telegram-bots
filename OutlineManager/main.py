@@ -5,11 +5,11 @@ from telebot import types
 import logging
 
 # Replace with your bot's API token
-API_TOKEN = '7368116919:AAHRwtTY2rAc3x5vhA3w89OOtdhgthkXCPs'
+API_TOKEN = ''
 bot = telebot.TeleBot(API_TOKEN)
 
 # The base URL for the Outline Server's API (replace with your actual API URL)
-OUTLINE_API_URL = 'https://127.0.0.1:38719/dOG0svD-9az-kI_lXCHWdg'
+OUTLINE_API_URL = ''
 
 # Set up logging
 # logging.basicConfig(level=logging.DEBUG)
@@ -33,7 +33,7 @@ def restart_server(message):
 def modify_access_url(original_url):
     parts = original_url.split('@')
     if len(parts) == 2:
-        modified_url = f"{parts[0]}@ont.ayrik.net:8445/?outline=1"
+        modified_url = f"{parts[0]}@127.0.0.1/?outline=1"
         return modified_url
     return original_url
 
